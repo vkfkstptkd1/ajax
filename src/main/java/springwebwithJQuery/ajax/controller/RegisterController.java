@@ -18,7 +18,7 @@ public class RegisterController {
 
     @GetMapping(value = "/tables.html")
     public String tableForm(Model model){
-        return "/tables";
+        return "tables";
     }
 
 
@@ -38,7 +38,7 @@ public class RegisterController {
         System.out.println(productform);
         model.addAttribute("productForm",productform);
 
-        return "/tables";
+        return "tables";
     }
 
 }
