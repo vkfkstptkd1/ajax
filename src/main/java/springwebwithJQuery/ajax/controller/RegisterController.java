@@ -8,21 +8,20 @@ import springwebwithJQuery.ajax.dto.ProductForm;
 import springwebwithJQuery.ajax.mapper.ProductMapper;
 import springwebwithJQuery.ajax.service.ProductService;
 
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
 public class RegisterController {
 
     private final ProductService productService;
-    private final ProductMapper productMapper;
 
-    @GetMapping(value = "/tables.html")
-    public String tableForm(Model model){
-        return "tables";
+    @GetMapping(value="/register.html")
+    public String registerForm(){
+        return "register";
     }
-
-
-    @RequestMapping(value = "/tables.html", method=RequestMethod.POST, consumes="application/json;")
+    @RequestMapping(value = "/register.html", method=RequestMethod.POST, consumes="application/json;")
     public String createProduct(@RequestBody ProductForm productform, Model model) throws Exception {
 
         ProductDto productDto = new ProductDto();
@@ -38,7 +37,6 @@ public class RegisterController {
         System.out.println(productform);
         model.addAttribute("productForm",productform);
 
-        return "tables";
+        return "register";
     }
-
 }

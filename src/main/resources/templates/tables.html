@@ -317,131 +317,47 @@
 
                     <!-- Page Heading -->
 
-                    <!-- register-->
-                    <div class="mb-4">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Create Product</h1>
-                        </div>
-                        <form class="user"
-                              id="registerData">
 
-                            <div class="form-group">
-
-                                <input type="text"
-                                       class="form-control form-control-user"
-                                       id="productId"
-                                       placeholder="productId">
-                                <input type="text"
-                                       class="form-control form-control-user"
-                                       id="productName"
-                                       placeholder="Product Name">
-
-                                <input type="text"
-                                       class="form-control form-control-user"
-                                       id="price"
-                                       placeholder="Price">
-
-                                <input type="text"
-                                       class="form-control form-control-user"
-                                       id="shortInfo"
-                                       placeholder="ShortInfo">
-
-                                <input type="text"
-                                       class="form-control form-control-user"
-                                       id="stockQuantity"
-                                       placeholder="StockQuantity">
-                                <input type="text"
-                                       class="form-control form-control-user"
-                                       id="score"
-                                       placeholder="score">
-                            </div>
-                        </form>
-
-                        <a href="#"
-                           id="execute"
-                           onclick="dataSend()"
-                           class="btn btn-primary btn-user btn-block">
-                            register
-                        </a>
-
-                        <a href="#"
+                        <!--<a href="#"
                            id="show"
                            onclick="dataShow();"
-                           class="btn btn-primary btn-user btn-block">
-                            lookup
-                        </a>
+                           class="btn btn-primary btn-user btn-block"
+                           >
+                            조회
+                        </a>-->
 
-                        <script>
-                            function dataSend() {
-                                var data=$("#productId").val();
-                                var data1=$("#productName").val();
-                                var data2=$("#price").val();
-                                var data3=$("#shortInfo").val();
-                                var data4=$("#stockQuantity").val();
-                                var data5=$("#score").val();
-
-                                var productForm= {
-                                    productId: data,
-                                    productName: data1,
-                                    price: data2,
-                                    shortInfo: data3,
-                                    stockQuantity: data4,
-                                    score: data5,
-                                };
-                                $.ajax({
-                                    url: "/tables.html", // 서버에 요청할 url
-                                    data: JSON.stringify(productForm), //서버에 요청할 때 보낼 데이터
-                                    type:"POST", //
-                                    contentType : "application/json", // 서버로 전송할 때 data type
-                                    success: function (data) {
-
-
-
-                                        /*alert(data);*/
-                                        alert('성공');
-                                    }
-                                });
-                            }
-                        </script>
                         <script>
                             function dataShow() {
-                                //alert('클릭은 됩니다.')
                                 $.ajax({
                                     url: "/product/search", // 서버에 요청할 url
                                     //data: JSON.stringify(productForm), //서버에 요청할 때 보낼 데이터
-                                    type:"GET", //
+                                    type:"GET",
                                     dataType: "json",// 서버에서 data 받는 타입
                                     //contentType : "application/json", // 서버로 전송할 때 data type
                                     success: function(data){
                                         var productList = data;
-                                        $.each(productList , function(i){
-                                            var html =
-                                                '<tr><td>'
-                                                + productList[i].productName + '</td><td>'
-                                                + productList[i].price + '</td><td>'
-                                                + productList[i].shortInfo + '</td><td>'
-                                                + productList[i].score + '</td><td>'
-                                                + productList[i].stockQuantity + '</td></tr>';
+                                        /*$.each(productList , function(i){
+                                            let html =
+                                                '<tr class="odd"><th>'
+                                                + productList[i].productName + '</th><th>'
+                                                + productList[i].price + '</th><th>'
+                                                + productList[i].shortInfo + '</th><th>'
+                                                + productList[i].score + '</th><th>'
+                                                + productList[i].stockQuantity + '</th></tr>';
                                             $("#productListTable").append(html)
-                                        });
+                                        });*/
                                     }
                                 }).done(function (data) {
 
                                 });
                             }
                         </script>
-
-                        <!--<script
-                                src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-                        <!--<div >
-                            <p th:if="${productForm}!=null" th:text="${productForm}"></p>
-                        </div>-->
                     </div>
 
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
+                    <div id="tablecard" class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">상품 조회</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -464,8 +380,14 @@
                                         <th>StockQuantity</th>
                                     </tr>
                                     </tfoot>
-                                    <tbody id ="productListTable">
-                                    <tr></tr>
+                                    <tbody id="productListTable">
+                                    <tr th:each="product : ${productList}">
+                                        <th th:text="${product.productName}"></th>
+                                        <th th:text="${product.price}"></th>
+                                        <th th:text="${product.shortInfo}"></th>
+                                        <th th:text="${product.score}"></th>
+                                        <th th:text="${product.stockQuantity}"></th>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -473,6 +395,7 @@
                     </div>
             </div>
             <!-- End of Main Content -->
+
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -534,6 +457,7 @@
 
 
 
+</div>
 </body>
 
 </html>
